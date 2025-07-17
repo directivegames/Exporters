@@ -34,6 +34,8 @@ namespace Maya2Babylon.Forms
         const string chkBakeAnimationFramesProperty = "babylonjs_bakeAnimationFrames";
         const string chkExportAnimationsProperty = "babylonjs_exportAnimations";
         const string chkExportAnimationsOnlyProperty = "babylonjs_exportAnimationsOnly";
+        const string txtScaleFactorProperty = "babylonjs_scaleFactor";
+        const string comboOutputFormatProperty = "babylonjs_outputFormat";
         const string chkExportTexturesProperty = "babylonjs_exportTextures";
 
         const string PBRFullPropertyName = "babylonjs_pbr_full";
@@ -57,7 +59,14 @@ namespace Maya2Babylon.Forms
 
         private void ExporterForm_Load(object sender, EventArgs e)
         {
-            comboOutputFormat.SelectedIndex = 0;
+            // Load output format (default to "glb" if not set)
+            string outputFormatValue = "";
+            if (Loader.GetUserPropString(comboOutputFormatProperty, ref outputFormatValue))
+            {
+                // Find the index of the saved format in the combobox
+                int index = comboOutputFormat.FindStringExact(outputFormatValue);
+                comboOutputFormat.SelectedIndex = index;
+            }
 
             chkCopyTextures.Checked = Loader.GetBoolProperty(chkCopyTexturesProperty, true);
             chkHidden.Checked = Loader.GetBoolProperty(chkHiddenProperty, false);
@@ -86,6 +95,14 @@ namespace Maya2Babylon.Forms
             chkExportAnimationsOnly.Checked = Loader.GetBoolProperty(chkExportAnimationsOnlyProperty, false);
             chkExportMaterials.Checked = Loader.GetBoolProperty(chkExportMaterialsProperty, true);
             chkExportTextures.Checked = Loader.GetBoolProperty(chkExportTexturesProperty, true);
+            
+            // Load scale factor (default to "100" if not set)
+            string scaleFactorValue = "";
+            if (Loader.GetUserPropString(txtScaleFactorProperty, ref scaleFactorValue))
+            {
+                txtScaleFactor.Text = scaleFactorValue;
+            }
+            
             /* txtFilename.Text = Loader.Core.RootNode.GetLocalData();
             Tools.PrepareComboBox(comboOutputFormat, Loader.Core.RootNode, "babylonjs_outputFormat", "babylon");*/
 
@@ -129,6 +146,12 @@ namespace Maya2Babylon.Forms
             Loader.SetBoolProperty(chkExportAnimationsOnlyProperty, chkExportAnimationsOnly.Checked);
             Loader.SetBoolProperty(chkExportMaterialsProperty, chkExportMaterials.Checked);
             Loader.SetBoolProperty(chkExportTexturesProperty, chkExportTextures.Checked);
+            
+            // Save scale factor
+            Loader.SetStringProperty(txtScaleFactorProperty, txtScaleFactor.Text);
+            
+            // Save output format
+            Loader.SetStringProperty(comboOutputFormatProperty, comboOutputFormat.SelectedItem.ToString());
 
             Loader.SetBoolProperty(PBRFullPropertyName, chkFullPBR.Checked);
             Loader.SetBoolProperty(PBRNoLightPropertyName, chkNoAutoLight.Checked);
