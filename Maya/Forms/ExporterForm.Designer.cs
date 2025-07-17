@@ -72,6 +72,7 @@ namespace Maya2Babylon.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.comboOutputFormat = new System.Windows.Forms.ComboBox();
             this.chkOnlySelected = new System.Windows.Forms.CheckBox();
+            this.chkResetTransformSelected = new System.Windows.Forms.CheckBox();
             this.chkAutoSave = new System.Windows.Forms.CheckBox();
             this.chkHidden = new System.Windows.Forms.CheckBox();
             this.chkExportTextures = new System.Windows.Forms.CheckBox();
@@ -234,6 +235,7 @@ namespace Maya2Babylon.Forms
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.comboOutputFormat);
             this.groupBox1.Controls.Add(this.chkOnlySelected);
+            this.groupBox1.Controls.Add(this.chkResetTransformSelected);
             this.groupBox1.Controls.Add(this.chkAutoSave);
             this.groupBox1.Controls.Add(this.chkHidden);
             this.groupBox1.Controls.Add(this.label1);
@@ -477,7 +479,7 @@ namespace Maya2Babylon.Forms
             this.chkExportSkin.Checked = true;
             this.chkExportSkin.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkExportSkin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkExportSkin.Location = new System.Drawing.Point(320, 163);
+            this.chkExportSkin.Location = new System.Drawing.Point(320, 185);
             this.chkExportSkin.Name = "chkExportSkin";
             this.chkExportSkin.Size = new System.Drawing.Size(80, 17);
             this.chkExportSkin.TabIndex = 19;
@@ -540,7 +542,7 @@ namespace Maya2Babylon.Forms
             this.chkOptimizeVertices.Checked = true;
             this.chkOptimizeVertices.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkOptimizeVertices.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkOptimizeVertices.Location = new System.Drawing.Point(320, 140);
+            this.chkOptimizeVertices.Location = new System.Drawing.Point(320, 163);
             this.chkOptimizeVertices.Name = "chkOptimizeVertices";
             this.chkOptimizeVertices.Size = new System.Drawing.Size(103, 17);
             this.chkOptimizeVertices.TabIndex = 16;
@@ -589,6 +591,19 @@ namespace Maya2Babylon.Forms
             // Default to exporting only selected objects
             this.chkOnlySelected.Checked = true;
 #endif
+
+            // 
+            // chkResetTransformSelected
+            // 
+            this.chkResetTransformSelected.AutoSize = true;
+            this.chkResetTransformSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkResetTransformSelected.Location = new System.Drawing.Point(320, 140);
+            this.chkResetTransformSelected.Name = "chkResetTransformSelected";
+            this.chkResetTransformSelected.Size = new System.Drawing.Size(105, 17);
+            this.chkResetTransformSelected.TabIndex = 12;
+            this.chkResetTransformSelected.Text = "Reset transform";
+            this.chkResetTransformSelected.UseVisualStyleBackColor = true;
+            this.chkResetTransformSelected.Checked = true;
             // 
             // chkAutoSave
             // 
@@ -767,5 +782,6 @@ namespace Maya2Babylon.Forms
         private System.Windows.Forms.CheckBox chkExportAnimationsOnly;
         private System.Windows.Forms.CheckBox chkExportMaterials;
         private System.Windows.Forms.CheckBox chkExportTextures;
+        private System.Windows.Forms.CheckBox chkResetTransformSelected;
     }
 }

@@ -91,6 +91,7 @@ namespace BabylonExport.Entities
         public bool exportHiddenObjects = false;
         public bool exportMaterials = true;
         public bool exportOnlySelected = false;
+        public bool resetTransformOnExportSelected = false;
         public bool bakeAnimationFrames = false;
         public bool optimizeAnimations = true;
         public bool optimizeVertices = true;

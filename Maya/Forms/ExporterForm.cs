@@ -18,6 +18,7 @@ namespace Maya2Babylon.Forms
         const string chkCopyTexturesProperty = "babylonjs_copyTextures";
         const string chkHiddenProperty = "babylonjs_exportHidden";
         const string chkOnlySelectedProperty = "babylonjs_exportOnlySelected";
+        const string chkResetTransformSelectedProperty = "babylonjs_resetTransformSelected";
         const string chkManifestProperty = "babylonjs_generateManifest";
         const string chkAutoSaveProperty = "babylonjs_autoSave";
         const string chkOptimizeVerticesProperty = "babylonjs_optimizeVertices";
@@ -61,6 +62,14 @@ namespace Maya2Babylon.Forms
             chkCopyTextures.Checked = Loader.GetBoolProperty(chkCopyTexturesProperty, true);
             chkHidden.Checked = Loader.GetBoolProperty(chkHiddenProperty, false);
             chkOnlySelected.Checked = Loader.GetBoolProperty(chkOnlySelectedProperty, false);
+            chkResetTransformSelected.Checked = Loader.GetBoolProperty(chkResetTransformSelectedProperty, false);
+            
+            // Enable/disable reset transform checkbox based on export only selected
+            chkResetTransformSelected.Enabled = chkOnlySelected.Checked;
+            
+            // Add event handler for export only selected checkbox
+            chkOnlySelected.CheckedChanged += chkOnlySelected_CheckedChanged;
+            
             chkManifest.Checked = Loader.GetBoolProperty(chkManifestProperty, false);
             chkAutoSave.Checked = Loader.GetBoolProperty(chkAutoSaveProperty, false);
             chkOptimizeVertices.Checked = Loader.GetBoolProperty(chkOptimizeVerticesProperty, true);
@@ -103,6 +112,7 @@ namespace Maya2Babylon.Forms
             Loader.SetBoolProperty(chkCopyTexturesProperty, chkCopyTextures.Checked);
             Loader.SetBoolProperty(chkHiddenProperty, chkHidden.Checked);
             Loader.SetBoolProperty(chkOnlySelectedProperty, chkOnlySelected.Checked);
+            Loader.SetBoolProperty(chkResetTransformSelectedProperty, chkResetTransformSelected.Checked);
             Loader.SetBoolProperty(chkManifestProperty, chkManifest.Checked);
             Loader.SetBoolProperty(chkAutoSaveProperty, chkAutoSave.Checked);
             Loader.SetBoolProperty(chkOptimizeVerticesProperty, chkOptimizeVertices.Checked);
@@ -230,6 +240,7 @@ namespace Maya2Babylon.Forms
                     outputFormat = comboOutputFormat.SelectedItem.ToString(),
                     generateManifest = chkManifest.Checked,
                     exportOnlySelected = chkOnlySelected.Checked,
+                    resetTransformOnExportSelected = chkResetTransformSelected.Checked,
                     autoSaveSceneFile = chkAutoSave.Checked,
                     exportHiddenObjects = chkHidden.Checked,
                     writeTextures = chkCopyTextures.Checked,
@@ -487,6 +498,11 @@ namespace Maya2Babylon.Forms
             {
                 txtEnvironmentName.Text = envFileDialog.FileName;
             }
+        }
+
+        private void chkOnlySelected_CheckedChanged(object sender, EventArgs e)
+        {
+            chkResetTransformSelected.Enabled = chkOnlySelected.Checked;
         }
     }
 }

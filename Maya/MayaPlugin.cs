@@ -172,72 +172,75 @@ namespace Maya2Babylon
                         ScriptExportParameters.exportOnlySelected = bool.Parse(argExportParameters[i]);
                         break;
                     case 9:
-                        ScriptExportParameters.bakeAnimationFrames = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.resetTransformOnExportSelected = bool.Parse(argExportParameters[i]);
                         break;
                     case 10:
-                        ScriptExportParameters.optimizeAnimations = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.bakeAnimationFrames = bool.Parse(argExportParameters[i]);
                         break;
                     case 11:
-                        ScriptExportParameters.optimizeVertices = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.optimizeAnimations = bool.Parse(argExportParameters[i]);
                         break;
                     case 12:
-                        ScriptExportParameters.animgroupExportNonAnimated = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.optimizeVertices = bool.Parse(argExportParameters[i]);
                         break;
                     case 13:
-                        ScriptExportParameters.generateManifest = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.animgroupExportNonAnimated = bool.Parse(argExportParameters[i]);
                         break;
                     case 14:
-                        ScriptExportParameters.autoSaveSceneFile = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.generateManifest = bool.Parse(argExportParameters[i]);
                         break;
                     case 15:
-                        ScriptExportParameters.exportTangents = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.autoSaveSceneFile = bool.Parse(argExportParameters[i]);
                         break;
                     case 16:
-                        ScriptExportParameters.exportSkins = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.exportTangents = bool.Parse(argExportParameters[i]);
                         break;
                     case 17:
-                        ScriptExportParameters.exportMorphTangents = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.exportSkins = bool.Parse(argExportParameters[i]);
                         break;
                     case 18:
-                        ScriptExportParameters.exportMorphNormals = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.exportMorphTangents = bool.Parse(argExportParameters[i]);
                         break;
                     case 19:
-                        ScriptExportParameters.txtQuality = long.Parse(argExportParameters[i]);
+                        ScriptExportParameters.exportMorphNormals = bool.Parse(argExportParameters[i]);
                         break;
                     case 20:
-                        ScriptExportParameters.mergeAO = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.txtQuality = long.Parse(argExportParameters[i]);
                         break;
                     case 21:
-                        ScriptExportParameters.dracoCompression = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.mergeAO = bool.Parse(argExportParameters[i]);
                         break;
                     case 22:
-                        ScriptExportParameters.enableKHRLightsPunctual = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.dracoCompression = bool.Parse(argExportParameters[i]);
                         break;
                     case 23:
-                        ScriptExportParameters.enableKHRTextureTransform = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.enableKHRLightsPunctual = bool.Parse(argExportParameters[i]);
                         break;
                     case 24:
-                        ScriptExportParameters.enableKHRMaterialsUnlit = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.enableKHRTextureTransform = bool.Parse(argExportParameters[i]);
                         break;
                     case 25:
-                        ScriptExportParameters.pbrFull = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.enableKHRMaterialsUnlit = bool.Parse(argExportParameters[i]);
                         break;
                     case 26:
-                        ScriptExportParameters.pbrNoLight = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.pbrFull = bool.Parse(argExportParameters[i]);
                         break;
                     case 27:
-                        ScriptExportParameters.createDefaultSkybox = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.pbrNoLight = bool.Parse(argExportParameters[i]);
                         break;
                     case 28:
-                        ScriptExportParameters.pbrEnvironment = argExportParameters[i];
+                        ScriptExportParameters.createDefaultSkybox = bool.Parse(argExportParameters[i]);
                         break;
                     case 29:
-                        ScriptExportParameters.exportAnimations = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.pbrEnvironment = argExportParameters[i];
                         break;
                     case 30:
-                        ScriptExportParameters.exportAnimationsOnly = bool.Parse(argExportParameters[i]);
+                        ScriptExportParameters.exportAnimations = bool.Parse(argExportParameters[i]);
                         break;
                     case 31:
+                        ScriptExportParameters.exportAnimationsOnly = bool.Parse(argExportParameters[i]);
+                        break;
+                    case 32:
                         ScriptExportParameters.exportTextures = bool.Parse(argExportParameters[i]);
                         break;
 
@@ -321,6 +324,7 @@ namespace Maya2Babylon
             result.append(ScriptExportParameters.exportHiddenObjects.ToString());
             result.append(ScriptExportParameters.exportMaterials.ToString());
             result.append(ScriptExportParameters.exportOnlySelected.ToString());
+            result.append(ScriptExportParameters.resetTransformOnExportSelected.ToString());
             result.append(ScriptExportParameters.bakeAnimationFrames.ToString());
             result.append(ScriptExportParameters.optimizeAnimations.ToString());
             result.append(ScriptExportParameters.optimizeVertices.ToString());

@@ -41,6 +41,40 @@ namespace Maya2Babylon
             return true;
         }
 
+        /// <summary>
+        /// Check if a node is top-level in the selected hierarchy
+        /// A node is considered top-level if it has no parent or if its parent is not in the selected list
+        /// </summary>
+        /// <param name="mFnTransform">The transform to check</param>
+        /// <returns>True if this is a top-level selected node</returns>
+        private bool IsTopLevelSelectedNode(MFnTransform mFnTransform)
+        {
+            // If we're not exporting only selected, then all nodes are considered top-level for this purpose
+            if (!exportParameters.exportOnlySelected)
+                return true;
+
+            // Check if this node has a parent
+            if (mFnTransform.parentCount == 0)
+                return true; // No parent, definitely top-level
+
+            // Get the parent DAG path
+            var mDagPath = new MDagPath(mFnTransform.dagPath);
+            mDagPath.pop(); // Move up to parent
+
+            MObject parentMObject = mDagPath.node;
+            
+            // If parent is the world node, this is top-level
+            if (parentMObject.apiType == MFn.Type.kWorld)
+                return true;
+
+            // Check if parent is in the selected list
+            string parentFullPath = mDagPath.fullPathName;
+            bool parentIsSelected = selectedNodeFullPaths.Contains(parentFullPath);
+            
+            // If parent is not selected, then this node is top-level in the selection
+            return !parentIsSelected;
+        }
+
         private void ExportHierarchy(BabylonNode babylonNode, MFnTransform mFnTransform)
         {
             if (mFnTransform.parentCount != 0)
@@ -70,6 +104,32 @@ namespace Maya2Babylon
             float[] scaling = null;
             BabylonVector3.EulerRotationOrder rotationOrder = BabylonVector3.EulerRotationOrder.XYZ;
             GetTransform(mFnTransform, ref position, ref rotationQuaternion, ref rotation, ref rotationOrder, ref scaling);
+
+            // Reset transform to origin if the option is enabled and we're exporting only selected
+            // Only reset for top-level nodes (nodes whose parent is not in the selected list)
+            if (exportParameters.resetTransformOnExportSelected && exportParameters.exportOnlySelected)
+            {
+                bool isTopLevelNode = IsTopLevelSelectedNode(mFnTransform);
+                
+                if (isTopLevelNode)
+                {
+                    // Reset position to origin
+                    position = new float[] { 0.0f, 0.0f, 0.0f };
+                    
+                    // Reset rotation to identity
+                    if (_exportQuaternionsInsteadOfEulers)
+                    {
+                        rotationQuaternion = new float[] { 0.0f, 0.0f, 0.0f, 1.0f }; // Identity quaternion
+                    }
+                    else
+                    {
+                        rotation = new float[] { 0.0f, 0.0f, 0.0f }; // No rotation
+                    }
+                    
+                    // Reset scaling to natural size
+                    scaling = new float[] { 1.0f, 1.0f, 1.0f };
+                }
+            }
 
             babylonNode.position = position;
             if (_exportQuaternionsInsteadOfEulers)
