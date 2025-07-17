@@ -526,7 +526,12 @@ namespace Maya2Babylon.Forms
             this.txtScaleFactor.Name = "txtScaleFactor";
             this.txtScaleFactor.Size = new System.Drawing.Size(42, 20);
             this.txtScaleFactor.TabIndex = 7;
+#if true // WITH_DIRECTIVE
+            // TODO: for some reason the scale needs to be 100 for exported GLB to have the correct size
+            this.txtScaleFactor.Text = "100";
+#else
             this.txtScaleFactor.Text = "1";
+#endif
             this.txtScaleFactor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // chkOptimizeVertices
@@ -555,10 +560,14 @@ namespace Maya2Babylon.Forms
             // 
             this.comboOutputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboOutputFormat.Items.AddRange(new object[] {
+#if true // WITH_DIRECTIVE
+            "glb"});
+#else
             "babylon",
             "binary babylon",
             "gltf",
             "glb"});
+#endif
             this.comboOutputFormat.Location = new System.Drawing.Point(86, 66);
             this.comboOutputFormat.Name = "comboOutputFormat";
             this.comboOutputFormat.Size = new System.Drawing.Size(121, 21);
@@ -575,6 +584,11 @@ namespace Maya2Babylon.Forms
             this.chkOnlySelected.TabIndex = 13;
             this.chkOnlySelected.Text = "Export only selected";
             this.chkOnlySelected.UseVisualStyleBackColor = true;
+
+#if true // WITH_DIRECTIVE
+            // Default to exporting only selected objects
+            this.chkOnlySelected.Checked = true;
+#endif
             // 
             // chkAutoSave
             // 
@@ -700,7 +714,7 @@ namespace Maya2Babylon.Forms
 
         }
 
-        #endregion
+#endregion
 
         private System.Windows.Forms.Button butExport;
         private System.Windows.Forms.Label label1;
